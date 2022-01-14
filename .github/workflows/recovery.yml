@@ -16,9 +16,9 @@ on:
 env:
   MANIFEST: https://gitlab.com/OrangeFox/Manifest.git
   MANIFEST_BRANCH: fox_9.0
-  DEVICE: rosy
-  DT_LINK: https://github.com/wizardx254/ulefone-Note_7P-device-tree.git
-  DT_PATH: /work/
+  DEVICE: Note_7P
+  DT_LINK: https://github.com/wizardx254/note7p
+  DT_PATH: device/ulefone/Note_7P
   TARGET: recoveryimage
   TZ: Asia/Kolkata
 
@@ -51,7 +51,11 @@ jobs:
              cd work
              repo init -u $MANIFEST -b $MANIFEST_BRANCH --depth=1 --groups=all,-notdefault,-device,-darwin,-x86,-mips
              repo sync -j4
-             git clone $DT_LINK --depth=1 --single-branch $DT_PATH
+             git clone $DT_LINK 
+             mkdir device
+             mkdir device/ulefone/
+             mkdir device/ulefone/Note_7P/
+             mv -f note7p/* device/ulefone/Note_7P/
              
        - name: Build
          run: |
